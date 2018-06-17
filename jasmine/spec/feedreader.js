@@ -42,12 +42,12 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-         it('all have names', function() {
-             allFeeds.forEach(function(item) {
-                 expect(item.name).toBeDefined();
-                 expect(item.name.length).not.toBe(0);
-             });
-         });
+        it('all have names', function() {
+            allFeeds.forEach(function(item) {
+                expect(item.name).toBeDefined();
+                expect(item.name.length).not.toBe(0);
+            });
+        });
     });
 
 
@@ -59,29 +59,37 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-         it('is hidden by default', function() {
+        it('is hidden by default', function() {
             expect(document.querySelector('body').classList).toContain('menu-hidden');
 
             const num = parseInt(window.getComputedStyle(document.querySelector('.slide-menu')).getPropertyValue('left'));
 
             expect(num).toBeLessThan(-191);
-         });
+        });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+        /* TODO: Write a test that ensures the menu changes
+         * visibility when the menu icon is clicked. This test
+         * should have two expectations: does the menu display when
+         * clicked and does it hide when clicked again.
+         */
+        it('changes visibility when icon is clicked', function() {
+            const menu = document.querySelector('.menu-icon-link');
+            const body = document.querySelector('body');
+
+            menu.dispatchEvent(new Event('click'));
+            expect(body.classList.contains('menu-hidden')).toBe(false);
+
+            menu.dispatchEvent(new Event('click'));
+            expect(body.classList.contains('menu-hidden')).toBe(true);
+        });
     });
     /* TODO: Write a new test suite named "Initial Entries" */
-
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-
     /* TODO: Write a new test suite named "New Feed Selection" */
 
         /* TODO: Write a test that ensures when a new feed is loaded
