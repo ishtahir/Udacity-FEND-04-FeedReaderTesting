@@ -40,7 +40,6 @@ $(function() {
         });
     });
 
-
     /* Write a new test suite named "The menu" */
     describe('The menu', function() {
         const body = document.querySelector('body');
