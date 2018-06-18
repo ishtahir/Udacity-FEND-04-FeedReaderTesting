@@ -62,15 +62,15 @@ $(function() {
          */
         it('changes visibility when icon is clicked', function() {
             menuIcon.click();
-            expect(body.classList.contains('menu-hidden')).toBe(false);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
             menuIcon.click();
-            expect(body.classList.contains('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
 
     /* Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
-        const feed = document.querySelector('.feed');
+        const feed = document.querySelector('.feed .entry');
 
         /* Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
@@ -88,8 +88,8 @@ $(function() {
     });
     /* Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
-        let startEntry;
-        let endEntry;
+        let prevUrl;
+        let newUrl;
         const feed = document.querySelector('.feed');
 
         /* Write a test that ensures when a new feed is loaded
@@ -97,17 +97,16 @@ $(function() {
          */
         beforeEach(function(done) {
             loadFeed(0, function() {
-                startEntry = feed.children[0];
-                done();
+                prevUrl = feed.children[0].getAttribute('href');
             });
             loadFeed(1, function() {
-                endEntry = feed.children[1];
+                newUrl = feed.children[1].getAttribute('href');
                 done();
             });
         });
 
         it('ensures that this content actually changes', function() {
-            expect(startEntry).not.toBe(endEntry);
+            expect(prevUrl).not.toBe(newUrl);
         });
     });
 }());
