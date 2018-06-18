@@ -62,9 +62,9 @@ $(function() {
          * clicked and does it hide when clicked again.
          */
         it('changes visibility when icon is clicked', function() {
-            menuIcon.dispatchEvent(new Event('click'));
+            menuIcon.click();
             expect(body.classList.contains('menu-hidden')).toBe(false);
-            menuIcon.dispatchEvent(new Event('click'));
+            menuIcon.click();
             expect(body.classList.contains('menu-hidden')).toBe(true);
         });
     });
@@ -83,7 +83,7 @@ $(function() {
             });
         });
 
-        it('makes sure there is at least one entry after load', function() {
+        it('makes sure there is at least one entry in feed container after load', function() {
             expect(feed).toBeDefined();
         });
     });
@@ -97,7 +97,6 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          */
         beforeEach(function(done) {
-            feed.innerHTML = '';
             loadFeed(0, function() {
                 startEntry = feed.children[0];
                 done();
