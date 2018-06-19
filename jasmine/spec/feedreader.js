@@ -52,7 +52,7 @@ $(function() {
         it('is hidden by default', function() {
             const num = parseInt(window.getComputedStyle(slide).getPropertyValue('left'));
             expect(num).toBeLessThan(-191);
-            expect(body.classList).toContain('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
         /* Write a test that ensures the menu changes
@@ -70,20 +70,17 @@ $(function() {
 
     /* Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
-        const feed = document.querySelector('.feed .entry');
-
         /* Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          */
         beforeEach(function(done) {
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
 
-        it('makes sure there is at least one entry in feed container after load', function() {
-            expect(feed).toBeDefined();
+        it('has at least one entry in feed container', function() {
+            const entry = document.querySelectorAll('.feed .entry');
+            expect(entry.length).toBeGreaterThan(0);
         });
     });
     /* Write a new test suite named "New Feed Selection" */
@@ -98,10 +95,10 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0, function() {
                 prevUrl = feed.children[0].getAttribute('href');
-            });
-            loadFeed(1, function() {
-                newUrl = feed.children[1].getAttribute('href');
-                done();
+                loadFeed(1, function() {
+                    newUrl = feed.children[1].getAttribute('href');
+                    done();
+                });
             });
         });
 
